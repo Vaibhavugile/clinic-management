@@ -1,0 +1,521 @@
+/* Doctors section — circular portraits and expandable profile cards */
+.doctors-section {
+  --doctor-navy: var(--hp-navy, #123b50);
+  --doctor-primary: var(--hp-primary, #0875b9);
+  --doctor-accent: var(--hp-accent, #2bb3c9);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(43, 179, 201, 0.12), transparent 40%),
+    var(--hp-surface, #f7fbfc);
+}
+
+.doctors-section::before,
+.doctors-section::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.doctors-section::before {
+  top: -120px;
+  left: -140px;
+  width: 340px;
+  height: 340px;
+  background: rgba(43, 179, 201, 0.14);
+}
+
+.doctors-section::after {
+  right: -120px;
+  bottom: -140px;
+  width: 380px;
+  height: 380px;
+  background: rgba(8, 117, 185, 0.10);
+}
+
+.doctors-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animated statistics */
+.doctors-stats {
+  position: relative;
+  max-width: 1000px;
+  margin: -12px auto 42px;
+  padding: 10px 0 18px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+}
+
+.doctors-stats-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+}
+
+.doctors-stats:hover .doctors-stats-group {
+  animation-play-state: paused;
+}
+
+.doctors-stats-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  gap: 16px;
+  padding-right: 16px;
+  animation: doctorsStatsScroll 26s linear infinite;
+}
+
+.doctors-stat {
+  display: flex;
+  flex: 0 0 220px;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 14px 18px;
+  border: 1px solid rgba(6, 47, 66, 0.08);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--hp-shadow-sm, 0 10px 30px rgba(12, 53, 72, 0.07));
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctors-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--hp-shadow, 0 14px 38px rgba(12, 53, 72, 0.12));
+}
+
+.doctors-stat-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--hp-ice, #e8f7fb);
+  color: var(--doctor-primary);
+}
+
+.doctors-stat strong {
+  color: var(--doctor-navy);
+  font-family: var(--hp-heading, inherit);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.doctors-stat small {
+  color: #6f7f86;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@keyframes doctorsStatsScroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-100%, 0, 0); }
+}
+
+/* Doctor cards */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 390px));
+  justify-content: center;
+  align-items: start;
+  gap: 30px;
+}
+
+.doctor-card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 30px 28px 24px;
+  border: 1px solid rgba(6, 47, 66, 0.09);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--hp-shadow-sm, 0 12px 34px rgba(12, 53, 72, 0.08));
+  text-align: center;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.doctor-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--doctor-primary), var(--doctor-accent));
+}
+
+.doctor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--hp-shadow-lg, 0 20px 46px rgba(12, 53, 72, 0.14));
+}
+
+.doctor-card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.doctor-photo-wrap {
+  position: relative;
+  width: 174px;
+  height: 174px;
+  margin: 3px auto 22px;
+  padding: 6px;
+  border: 2px solid rgba(8, 117, 185, 0.22);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(8, 117, 185, 0.15), rgba(43, 179, 201, 0.22));
+  box-shadow: 0 10px 28px rgba(8, 117, 185, 0.12);
+}
+
+.doctor-photo {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #e5f5f8, #0b4a68);
+}
+
+.doctor-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.6s ease;
+}
+
+.doctor-card:hover .doctor-photo img {
+  transform: scale(1.06);
+}
+
+.doctor-photo-fallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.doctor-photo-check {
+  position: absolute;
+  right: 4px;
+  bottom: 10px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--doctor-primary);
+  color: #fff;
+}
+
+.doctor-role {
+  color: var(--doctor-primary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.doctor-card h3 {
+  margin: 8px 0 7px;
+  color: var(--doctor-navy);
+  font-family: var(--hp-heading, inherit);
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.35px;
+  line-height: 1.25;
+}
+
+.doctor-qualification {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 0;
+  color: #657780;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.doctor-qualification strong {
+  color: var(--doctor-navy);
+}
+
+.doctor-dot {
+  color: var(--doctor-accent);
+}
+
+.doctor-verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #effaf3;
+  color: #23643b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.doctor-bio {
+  max-width: 310px;
+  margin: 15px auto 0;
+  color: #63747c;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.doctor-extra {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e7eef1;
+  text-align: left;
+  animation: doctorDetailsIn 0.28s ease both;
+}
+
+.doctor-full-experience {
+  margin: 0 0 16px;
+  color: var(--doctor-navy);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.doctor-extra h4 {
+  margin: 0 0 12px;
+  color: var(--doctor-navy);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.doctor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.doctor-tags li {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #d9edf3;
+  border-radius: 999px;
+  background: #f2fafc;
+  color: var(--doctor-primary);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.doctor-tags li svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.doctor-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.doctor-read-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  align-self: center;
+  padding: 7px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--doctor-primary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.doctor-read-more:hover {
+  color: var(--doctor-navy);
+}
+
+.doctor-chevron {
+  transition: transform 0.25s ease;
+}
+
+.doctor-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.home-page .doctor-book,
+.doctor-book {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(100deg, var(--doctor-primary), #159eb5);
+  box-shadow: 0 8px 18px rgba(8, 117, 185, 0.18);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.doctor-book:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(8, 117, 185, 0.25);
+  filter: saturate(1.08);
+}
+
+.doctor-book-arrow {
+  margin-left: auto;
+  transition: transform 0.25s ease;
+}
+
+.doctor-book:hover .doctor-book-arrow {
+  transform: translateX(3px);
+}
+
+@keyframes doctorDetailsIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .doctors-stats {
+    margin: -8px -18px 28px;
+    padding: 8px 0 14px;
+  }
+
+  .doctors-stats-group {
+    gap: 10px;
+    padding-right: 10px;
+  }
+
+  .doctors-stat {
+    flex-basis: 155px;
+    padding: 16px 10px 14px;
+    border-radius: 17px;
+  }
+
+  .doctors-stat-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 11px;
+  }
+
+  .doctors-stat strong {
+    font-size: 29px;
+  }
+
+  .doctors-stat small {
+    font-size: 11px;
+  }
+
+  .doctors-grid {
+    grid-template-columns: minmax(0, 440px);
+    gap: 18px;
+  }
+
+  .doctor-card {
+    padding: 25px 22px 21px;
+    border-radius: 22px;
+  }
+
+  .doctor-photo-wrap {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 18px;
+  }
+
+  .doctor-card h3 {
+    font-size: 23px;
+  }
+
+  .doctor-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .doctor-card {
+    padding: 23px 16px 18px;
+  }
+
+  .doctor-photo-wrap {
+    width: 136px;
+    height: 136px;
+  }
+
+  .doctor-card h3 {
+    font-size: 21px;
+  }
+
+  .doctor-bio {
+    font-size: 12.5px;
+  }
+}
+
+@media (hover: none) {
+  .doctor-card:hover,
+  .doctors-stat:hover {
+    transform: none;
+  }
+
+  .doctor-card:hover .doctor-photo img {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doctor-card,
+  .doctor-photo img,
+  .doctor-read-more,
+  .doctor-chevron,
+  .doctor-book,
+  .doctor-book-arrow,
+  .doctors-stat {
+    transition: none;
+  }
+
+  .doctors-stats-group {
+    animation: none;
+  }
+
+  .doctor-extra {
+    animation: none;
+  }
+}

@@ -1,0 +1,1300 @@
+
+/* =========================================================
+   ANAND DENTAL — PREMIUM APPOINTMENTS DASHBOARD
+   ========================================================= */
+
+.ad-appt-page {
+  --appt-blue: #2469df;
+  --appt-blue-dark: #174cae;
+  --appt-navy: #14243b;
+  --appt-text: #24344b;
+  --appt-muted: #7c8ba1;
+  --appt-border: #e8edf4;
+  --appt-surface: #ffffff;
+
+  width: 100%;
+  min-width: 0;
+  padding: 4px 2px 28px;
+  color: var(--appt-text);
+  animation: adApptFadeIn 0.4s ease both;
+}
+
+@keyframes adApptFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.ad-appt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.ad-appt-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ad-appt-heading-icon {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #286be0;
+  background: linear-gradient(145deg, #eaf2ff, #dce9ff);
+  border: 1px solid #dce8ff;
+  border-radius: 17px;
+  box-shadow: 0 5px 15px rgba(36, 105, 223, 0.08);
+}
+
+.ad-appt-eyebrow {
+  margin-bottom: 5px;
+  color: #6d84a4;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.35px;
+}
+
+.ad-appt-heading h1 {
+  margin: 0;
+  color: #15263e;
+  font-size: clamp(24px, 2.4vw, 31px);
+  font-weight: 800;
+  letter-spacing: -1.15px;
+  line-height: 1.2;
+}
+
+.ad-appt-heading p {
+  margin: 6px 0 0;
+  color: #8190a5;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ad-appt-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.ad-appt-live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #63748b;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ad-appt-live-dot {
+  width: 8px;
+  height: 8px;
+  background: #22b879;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(34, 184, 121, 0.12);
+}
+
+.ad-appt-add-btn {
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 19px;
+  color: #fff;
+  background: linear-gradient(135deg, #347df0, #1d5ed3);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(36, 105, 223, 0.2);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.ad-appt-add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 20px rgba(36, 105, 223, 0.28);
+}
+
+.ad-appt-add-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   STATISTICS CARDS
+   ========================================================= */
+
+.ad-appt-stats {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 13px;
+  margin-bottom: 25px;
+}
+
+.ad-appt-stat {
+  position: relative;
+  min-width: 0;
+  min-height: 142px;
+  padding: 16px 16px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #e9edf4;
+  border-radius: 17px;
+  box-shadow: 0 3px 12px rgba(24, 46, 78, 0.035);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.ad-appt-stat::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  right: -35px;
+  bottom: -46px;
+  border-radius: 50%;
+  background: var(--stat-bg);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.ad-appt-stat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 22px rgba(24, 46, 78, 0.075);
+  border-color: var(--stat-color);
+}
+
+.ad-appt-stat.is-active {
+  border-color: var(--stat-color);
+  background: var(--stat-active-bg);
+  box-shadow: 0 0 0 2px var(--stat-outline);
+}
+
+.ad-appt-stat-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ad-appt-stat-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--stat-color);
+  background: var(--stat-bg);
+  border-radius: 11px;
+}
+
+.ad-appt-stat-arrow {
+  color: #bdc8d6;
+  transition: 0.2s ease;
+}
+
+.ad-appt-stat:hover .ad-appt-stat-arrow {
+  color: var(--stat-color);
+  transform: translate(2px, -2px);
+}
+
+.ad-appt-stat-number {
+  margin-top: 11px;
+  color: #1a2c44;
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ad-appt-stat-label {
+  margin-top: 8px;
+  color: #304158;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ad-appt-stat-sub {
+  margin-top: 3px;
+  color: #94a0b1;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.ad-appt-stat-blue {
+  --stat-color: #3477e5;
+  --stat-bg: #eaf2ff;
+  --stat-active-bg: #f1f6ff;
+  --stat-outline: rgba(52, 119, 229, 0.08);
+}
+
+.ad-appt-stat-amber {
+  --stat-color: #d79419;
+  --stat-bg: #fff5e3;
+  --stat-active-bg: #fffbf2;
+  --stat-outline: rgba(215, 148, 25, 0.1);
+}
+
+.ad-appt-stat-green {
+  --stat-color: #1ca875;
+  --stat-bg: #e7f8f0;
+  --stat-active-bg: #f1fcf7;
+  --stat-outline: rgba(28, 168, 117, 0.1);
+}
+
+.ad-appt-stat-red {
+  --stat-color: #e05b65;
+  --stat-bg: #fff0f0;
+  --stat-active-bg: #fff8f8;
+  --stat-outline: rgba(224, 91, 101, 0.1);
+}
+
+.ad-appt-stat-violet {
+  --stat-color: #8062db;
+  --stat-bg: #f1edff;
+  --stat-active-bg: #f8f6ff;
+  --stat-outline: rgba(128, 98, 219, 0.1);
+}
+
+/* =========================================================
+   MAIN CONTENT CARD
+   ========================================================= */
+
+.ad-appt-content {
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #e8edf4;
+  border-radius: 19px;
+  box-shadow: 0 4px 20px rgba(20, 42, 75, 0.045);
+  overflow: hidden;
+}
+
+.ad-appt-content-header {
+  min-height: 83px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 19px 22px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.ad-appt-section-title {
+  color: #1c2d45;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.35px;
+}
+
+.ad-appt-section-subtitle {
+  margin: 5px 0 0;
+  color: #8a97a9;
+  font-size: 12px;
+}
+
+.ad-appt-total-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  color: #64758c;
+  background: #f5f7fa;
+  border: 1px solid #edf0f4;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.ad-appt-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 17px 22px;
+  background: #fff;
+}
+
+.ad-appt-search {
+  height: 43px;
+  min-width: 150px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 13px;
+  color: #96a3b4;
+  background: #f8fafc;
+  border: 1px solid #e9edf3;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.ad-appt-search:focus-within {
+  background: #fff;
+  border-color: #7da8ed;
+  box-shadow: 0 0 0 3px rgba(52, 119, 229, 0.09);
+}
+
+.ad-appt-search input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  color: #304158;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.ad-appt-search input::placeholder {
+  color: #a0aabb;
+}
+
+.ad-appt-search input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.ad-appt-clear-search {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #8190a3;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.ad-appt-filter {
+  height: 43px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  color: #8391a4;
+  background: #fff;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  transition: border-color 0.2s;
+}
+
+.ad-appt-filter:focus-within {
+  border-color: #7da8ed;
+}
+
+.ad-appt-filter select {
+  max-width: 145px;
+  color: #46566d;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ad-appt-reset {
+  height: 40px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  color: #df5b65;
+  background: #fff5f5;
+  border: 1px solid #ffe5e5;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ad-appt-reset:hover {
+  background: #ffebeb;
+}
+
+/* =========================================================
+   RESULTS SUMMARY
+   ========================================================= */
+
+.ad-appt-results {
+  min-height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 22px 13px;
+  color: #8996a8;
+  font-size: 11px;
+}
+
+.ad-appt-results strong {
+  color: #42536b;
+  font-weight: 800;
+}
+
+.ad-appt-filter-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #3477df;
+  font-weight: 600;
+}
+
+.ad-appt-filter-active span {
+  width: 6px;
+  height: 6px;
+  background: #3477df;
+  border-radius: 50%;
+}
+
+/* =========================================================
+   APPOINTMENT TABLE
+   ========================================================= */
+
+.ad-appt-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d7e0ed transparent;
+}
+
+.ad-appt-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.ad-appt-table thead {
+  background: #f8fafc;
+}
+
+.ad-appt-table th {
+  height: 45px;
+  padding: 0 13px;
+  color: #8996a8;
+  border-top: 1px solid #edf0f5;
+  border-bottom: 1px solid #edf0f5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ad-appt-table th:first-child,
+.ad-appt-table td:first-child {
+  padding-left: 22px;
+}
+
+.ad-appt-table th:last-child,
+.ad-appt-table td:last-child {
+  padding-right: 22px;
+}
+
+.ad-appt-table td {
+  height: 77px;
+  padding: 12px 13px;
+  color: #42536b;
+  border-bottom: 1px solid #f0f2f6;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.ad-appt-table tbody tr {
+  transition: background 0.18s ease;
+}
+
+.ad-appt-table tbody tr:hover {
+  background: #fafcff;
+}
+
+.ad-appt-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ad-appt-action-heading {
+  text-align: right;
+}
+
+/* PATIENT */
+
+.ad-appt-patient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 155px;
+}
+
+.ad-appt-avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #3477df;
+  background: linear-gradient(145deg, #eaf2ff, #dce9ff);
+  border: 1px solid #dce8ff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.ad-appt-patient-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ad-appt-patient-name {
+  max-width: 160px;
+  padding: 0;
+  overflow: hidden;
+  color: #263950;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ad-appt-patient-name:hover {
+  color: #286ce0;
+}
+
+.ad-appt-phone {
+  color: #929eae;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+/* TREATMENT */
+
+.ad-appt-treatment {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.ad-appt-treatment-icon {
+  width: 29px;
+  height: 29px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #697ed1;
+  background: #f0f2ff;
+  border-radius: 9px;
+}
+
+.ad-appt-treatment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ad-appt-treatment-info strong {
+  max-width: 170px;
+  overflow: hidden;
+  color: #40516a;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ad-appt-treatment-info span {
+  max-width: 170px;
+  overflow: hidden;
+  color: #9aa5b4;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ad-appt-note {
+  max-width: 180px;
+  margin: 5px 0 0;
+  overflow: hidden;
+  color: #9ba5b3;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* DOCTOR */
+
+.ad-appt-doctor {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ad-appt-doctor svg {
+  color: #9aa8ba;
+}
+
+/* DATE AND TIME */
+
+.ad-appt-datetime {
+  min-width: 125px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ad-appt-datetime strong {
+  color: #3b4e66;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ad-appt-datetime > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #8a99ac;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.ad-appt-datetime > span svg {
+  color: #a4b1c1;
+}
+
+.ad-appt-postponed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  color: #c1841e;
+  font-size: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* STATUS */
+
+.ad-appt-status {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* ACTIONS */
+
+.ad-appt-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  min-width: 75px;
+}
+
+.ad-appt-wa {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #18a76c;
+  background: #eaf9f1;
+  border: 1px solid #d9f2e5;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.ad-appt-wa:hover {
+  color: #fff;
+  background: #1ca76c;
+  border-color: #1ca76c;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.ad-appt-loading {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #8b99aa;
+  font-size: 12px;
+}
+
+.ad-appt-loader {
+  width: 29px;
+  height: 29px;
+  border: 3px solid #e7eef9;
+  border-top-color: #3477df;
+  border-radius: 50%;
+  animation: adApptSpin 0.8s linear infinite;
+}
+
+@keyframes adApptSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.ad-appt-empty {
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.ad-appt-empty-icon {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  color: #3477df;
+  background: #edf4ff;
+  border: 1px solid #dfeaff;
+  border-radius: 19px;
+}
+
+.ad-appt-empty h3 {
+  margin: 17px 0 0;
+  color: #263951;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.ad-appt-empty p {
+  max-width: 350px;
+  margin: 8px 0 0;
+  color: #8b99aa;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ad-appt-empty-reset {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 17px;
+  padding: 0 14px;
+  color: #286ce0;
+  background: #eef4ff;
+  border: 1px solid #dfeaff;
+  border-radius: 9px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ad-appt-empty-reset:hover {
+  background: #e1ecff;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.ad-appt-footer {
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 22px;
+  color: #9aa5b4;
+  background: #fbfcfe;
+  border-top: 1px solid #edf0f5;
+  font-size: 10px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .ad-appt-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ad-appt-stat {
+    min-height: 130px;
+  }
+
+  .ad-appt-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .ad-appt-search {
+    flex-basis: 100%;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .ad-appt-page {
+    padding: 0 0 20px;
+  }
+
+  .ad-appt-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 18px;
+  }
+
+  .ad-appt-heading {
+    gap: 12px;
+  }
+
+  .ad-appt-heading-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 13px;
+  }
+
+  .ad-appt-heading h1 {
+    font-size: 24px;
+  }
+
+  .ad-appt-heading p {
+    max-width: 290px;
+    font-size: 11px;
+  }
+
+  .ad-appt-eyebrow {
+    font-size: 9px;
+  }
+
+  .ad-appt-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .ad-appt-live {
+    font-size: 10px;
+  }
+
+  .ad-appt-add-btn {
+    height: 41px;
+    padding: 0 13px;
+    font-size: 11px;
+  }
+
+  /* Statistics */
+
+  .ad-appt-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin-bottom: 17px;
+  }
+
+  .ad-appt-stat {
+    min-height: 116px;
+    padding: 12px;
+    border-radius: 13px;
+  }
+
+  .ad-appt-stat-icon {
+    width: 31px;
+    height: 31px;
+    border-radius: 9px;
+  }
+
+  .ad-appt-stat-icon svg {
+    width: 16px;
+  }
+
+  .ad-appt-stat-number {
+    margin-top: 10px;
+    font-size: 24px;
+  }
+
+  .ad-appt-stat-label {
+    margin-top: 5px;
+    font-size: 11px;
+  }
+
+  .ad-appt-stat-sub {
+    font-size: 9px;
+  }
+
+  /* Main content */
+
+  .ad-appt-content {
+    border-radius: 15px;
+  }
+
+  .ad-appt-content-header {
+    min-height: 69px;
+    padding: 14px;
+  }
+
+  .ad-appt-section-title {
+    font-size: 14px;
+  }
+
+  .ad-appt-section-subtitle {
+    max-width: 230px;
+    font-size: 10px;
+  }
+
+  .ad-appt-total-pill {
+    padding: 7px 9px;
+    font-size: 9px;
+  }
+
+  /* Filters */
+
+  .ad-appt-toolbar {
+    gap: 8px;
+    padding: 13px;
+  }
+
+  .ad-appt-search {
+    height: 42px;
+    flex: 1 1 100%;
+  }
+
+  .ad-appt-search input {
+    font-size: 11px;
+  }
+
+  .ad-appt-filter {
+    height: 38px;
+    flex: 1;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 7px;
+  }
+
+  .ad-appt-filter svg {
+    width: 14px;
+  }
+
+  .ad-appt-filter select {
+    width: 100%;
+    max-width: none;
+    font-size: 10px;
+  }
+
+  .ad-appt-reset {
+    height: 36px;
+    font-size: 10px;
+  }
+
+  .ad-appt-results {
+    padding: 0 14px 12px;
+    font-size: 9.5px;
+  }
+
+  /* Mobile appointment cards */
+
+  .ad-appt-table-wrap {
+    overflow: visible;
+    padding: 0 10px 8px;
+    background: #f8fafc;
+    border-top: 1px solid #edf0f5;
+  }
+
+  .ad-appt-table {
+    display: block;
+    min-width: 0;
+    width: 100%;
+    border-spacing: 0;
+  }
+
+  .ad-appt-table thead {
+    display: none;
+  }
+
+  .ad-appt-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .ad-appt-table tbody tr {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "patient status"
+      "treatment treatment"
+      "datetime actions";
+    align-items: center;
+    gap: 10px 8px;
+    padding: 13px;
+    background: #fff;
+    border: 1px solid #e9edf4;
+    border-radius: 13px;
+    box-shadow: 0 2px 7px rgba(20, 42, 75, 0.025);
+  }
+
+  .ad-appt-table tbody tr:hover {
+    background: #fff;
+  }
+
+  .ad-appt-table td {
+    display: block;
+    height: auto;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    font-size: 11px;
+  }
+
+  .ad-appt-table td:first-child {
+    padding-left: 0;
+  }
+
+  .ad-appt-table td:last-child {
+    padding-right: 0;
+  }
+
+  .ad-appt-table td:nth-child(1) {
+    grid-area: patient;
+  }
+
+  .ad-appt-table td:nth-child(2) {
+    grid-area: treatment;
+  }
+
+  .ad-appt-table td:nth-child(3) {
+    display: none;
+  }
+
+  .ad-appt-table td:nth-child(4) {
+    grid-area: datetime;
+  }
+
+  .ad-appt-table td:nth-child(5) {
+    grid-area: status;
+    justify-self: end;
+    align-self: start;
+  }
+
+  .ad-appt-table td:nth-child(6) {
+    grid-area: actions;
+    justify-self: end;
+    align-self: end;
+  }
+
+  /* Mobile patient */
+
+  .ad-appt-patient {
+    gap: 9px;
+    min-width: 0;
+  }
+
+  .ad-appt-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+  }
+
+  .ad-appt-patient-name {
+    max-width: 180px;
+    font-size: 11.5px;
+  }
+
+  .ad-appt-phone {
+    font-size: 9.5px;
+  }
+
+  /* Mobile treatment */
+
+  .ad-appt-treatment {
+    gap: 7px;
+    padding-top: 9px;
+    border-top: 1px solid #f0f2f6;
+  }
+
+  .ad-appt-treatment-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .ad-appt-treatment-icon svg {
+    width: 13px;
+  }
+
+  .ad-appt-treatment-info strong {
+    max-width: 240px;
+    font-size: 10.5px;
+  }
+
+  .ad-appt-treatment-info span {
+    display: none;
+  }
+
+  .ad-appt-note {
+    display: none;
+  }
+
+  /* Mobile date */
+
+  .ad-appt-datetime {
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .ad-appt-datetime strong {
+    font-size: 10px;
+  }
+
+  .ad-appt-datetime > span {
+    font-size: 9.5px;
+  }
+
+  .ad-appt-postponed {
+    max-width: 180px;
+    overflow: hidden;
+    font-size: 8px;
+    text-overflow: ellipsis;
+  }
+
+  /* Mobile actions */
+
+  .ad-appt-actions {
+    gap: 5px;
+  }
+
+  .ad-appt-wa {
+    width: 31px;
+    height: 31px;
+    border-radius: 9px;
+  }
+
+  .ad-appt-footer {
+    padding: 0 13px;
+    font-size: 9px;
+  }
+
+  .ad-appt-empty {
+    min-height: 245px;
+    padding: 25px 15px;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .ad-appt-stat {
+    padding: 10px;
+  }
+
+  .ad-appt-stat-number {
+    font-size: 22px;
+  }
+
+  .ad-appt-header-actions {
+    gap: 6px;
+  }
+
+  .ad-appt-live {
+    font-size: 9px;
+  }
+
+  .ad-appt-add-btn {
+    padding: 0 10px;
+  }
+
+  .ad-appt-total-pill {
+    font-size: 8px;
+  }
+
+  .ad-appt-table tbody tr {
+    padding: 10px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.ad-appt-page button:focus-visible,
+.ad-appt-page a:focus-visible,
+.ad-appt-page select:focus-visible {
+  outline: 3px solid rgba(52, 119, 229, 0.25);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ad-appt-page *,
+  .ad-appt-page *::before,
+  .ad-appt-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

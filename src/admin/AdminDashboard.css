@@ -1,0 +1,1044 @@
+/* ==========================================================================
+   Anand Dental admin dashboard
+   Everything is scoped under .ad-shell, and the dashboard sits on its own
+   full-screen layer so the website's global CSS (#root, body, section,
+   header, button, h1...) cannot change how it looks.
+   ========================================================================== */
+
+.ad-shell {
+  --navy: #0a2540;
+  --navy-2: #12365c;
+  --blue: #1d6fdb;
+  --blue-dark: #1558b0;
+  --sky: #e3efff;
+  --bg: #f2f6fc;
+  --surface: #ffffff;
+  --line: #dde6f2;
+  --text: #0f2238;
+  --muted: #62758c;
+  --green: #14804a;
+  --green-bg: #dff5e9;
+  --amber: #9a6500;
+  --amber-bg: #fff1d1;
+  --red: #b42335;
+  --red-bg: #fde3e6;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: auto;
+  display: flex;
+  align-items: flex-start;
+  text-align: left;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+.ad-shell *,
+.ad-shell *::before,
+.ad-shell *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- resets: keep site-wide styles out of the dashboard ---------- */
+.ad-shell p,
+.ad-shell h1,
+.ad-shell h2,
+.ad-shell h3,
+.ad-shell ul {
+  margin: 0;
+  padding: 0;
+}
+.ad-shell aside,
+.ad-shell header,
+.ad-shell main,
+.ad-shell nav,
+.ad-shell section {
+  margin: 0;
+}
+.ad-shell h1,
+.ad-shell h2,
+.ad-shell h3 {
+  font-family: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.25;
+}
+.ad-shell button,
+.ad-shell input,
+.ad-shell select,
+.ad-shell textarea {
+  font-family: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  box-shadow: none;
+}
+/* :where() keeps this at the lowest priority, so every .ad-* class below wins
+   (otherwise it would override the button / nav text colours and weights). */
+:where(.ad-shell) :is(button, input, select, textarea) {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+.ad-shell a {
+  text-decoration: none;
+}
+.ad-shell :focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ---------- sidebar (opens from the hamburger on every screen size) ---------- */
+.ad-side {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 248px;
+  max-width: 85vw;
+  background: var(--navy);
+  color: #cfe0f5;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  overflow-y: auto;
+  z-index: 30;
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 0.2s ease, visibility 0.2s;
+}
+.ad-side-open {
+  transform: none;
+  visibility: visible;
+  box-shadow: 8px 0 32px rgba(10, 37, 64, 0.35);
+}
+.ad-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px 24px;
+}
+.ad-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--blue);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 20px;
+  flex: none;
+}
+.ad-brand-name {
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+}
+.ad-brand-sub {
+  font-size: 13px;
+  color: #8fb0d6;
+}
+.ad-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.ad-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #cfe0f5;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.ad-nav-item:hover {
+  background: var(--navy-2);
+}
+.ad-nav-on,
+.ad-nav-on:hover {
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
+}
+.ad-logout {
+  color: #8fb0d6;
+}
+.ad-scrim {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 37, 64, 0.5);
+  z-index: 20;
+}
+
+/* ---------- main area ---------- */
+.ad-main {
+  flex: 1;
+  min-width: 0;
+}
+.ad-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.ad-top h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.ad-burger {
+  display: inline-grid;
+  flex: none;
+}
+.ad-content {
+  padding: 24px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ad-grow {
+  flex: 1;
+  min-width: 0;
+}
+.ad-strong {
+  font-weight: 600;
+}
+.ad-muted {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* ---------- cards and stats ---------- */
+.ad-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  min-width: 0;
+}
+.ad-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.ad-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.ad-link {
+  border: 0;
+  background: none;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+}
+.ad-link:hover {
+  text-decoration: underline;
+}
+.ad-link-center {
+  align-self: center;
+}
+.ad-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ad-stats-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.ad-stat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.ad-stat-label {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.ad-shell .ad-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 4px 0 2px;
+  color: var(--navy);
+}
+.ad-stat-note {
+  font-size: 13px;
+  color: var(--muted);
+}
+.ad-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ---------- charts ---------- */
+.ad-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 190px;
+  padding-top: 8px;
+}
+.ad-bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.ad-bar {
+  width: 100%;
+  max-width: 38px;
+  background: var(--blue);
+  border-radius: 8px 8px 3px 3px;
+  min-height: 4px;
+}
+.ad-bar-num {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.ad-bar-day {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.ad-mix {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ad-mix-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.ad-track {
+  height: 9px;
+  background: var(--sky);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.ad-fill {
+  height: 100%;
+  background: var(--blue);
+  border-radius: 99px;
+}
+
+/* ---------- lists ---------- */
+.ad-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.ad-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.ad-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.ad-list-roomy li {
+  padding: 16px 0;
+}
+.ad-time {
+  min-width: 52px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  font-variant-numeric: tabular-nums;
+}
+.ad-overdue {
+  color: var(--red);
+  font-weight: 600;
+  font-size: 13.5px;
+}
+.ad-empty {
+  padding: 28px 8px;
+  text-align: center;
+  color: var(--muted);
+}
+.ad-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--sky);
+  color: var(--blue-dark);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex: none;
+}
+.ad-avatar-lg {
+  width: 40px;
+  height: 40px;
+  background: var(--navy);
+  color: #fff;
+}
+.ad-avatar-xl {
+  width: 56px;
+  height: 56px;
+  font-size: 18px;
+}
+.ad-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ad-person p {
+  margin: 0;
+}
+.ad-off {
+  opacity: 0.55;
+}
+
+/* ---------- toolbar, tabs, tables ---------- */
+.ad-toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.ad-toolbar-end {
+  justify-content: flex-end;
+}
+.ad-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--muted);
+}
+.ad-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 10px 0;
+  outline: none;
+  color: var(--text);
+}
+.ad-search:focus-within {
+  border-color: var(--blue);
+}
+.ad-toolbar select {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+.ad-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.ad-toolbar .ad-tabs {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+.ad-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+.ad-tab-on {
+  color: var(--blue-dark);
+  border-bottom-color: var(--blue);
+}
+.ad-count {
+  background: var(--sky);
+  color: var(--blue-dark);
+  border-radius: 99px;
+  padding: 0 8px;
+  font-size: 12.5px;
+}
+.ad-tab-top {
+  margin-top: 14px;
+}
+.ad-table-wrap {
+  overflow-x: auto;
+}
+.ad-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+.ad-table th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.ad-table td {
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.ad-table tbody tr:hover {
+  background: #f7faff;
+}
+.ad-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.ad-table select {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+.ad-table select:disabled {
+  opacity: 0.6;
+}
+.ad-note {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ad-name-btn {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-weight: 600;
+  color: var(--blue-dark);
+  cursor: pointer;
+  text-align: left;
+}
+.ad-name-btn:hover {
+  text-decoration: underline;
+}
+
+/* ---------- badges ---------- */
+.ad-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ad-badge-new,
+.ad-badge-pending {
+  background: var(--amber-bg);
+  color: var(--amber);
+}
+.ad-badge-confirmed,
+.ad-badge-reminded {
+  background: var(--sky);
+  color: var(--blue-dark);
+}
+.ad-badge-completed,
+.ad-badge-booked,
+.ad-badge-done {
+  background: var(--green-bg);
+  color: var(--green);
+}
+.ad-badge-cancelled {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+/* ---------- buttons ---------- */
+.ad-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ad-btn-sm {
+  padding: 6px 12px;
+  font-size: 13.5px;
+}
+.ad-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.ad-btn-primary {
+  background: var(--blue);
+  color: #fff;
+}
+.ad-btn-primary:hover:not(:disabled) {
+  background: var(--blue-dark);
+}
+.ad-btn-primary:disabled {
+  background: #a9c6ee;
+  opacity: 1;
+}
+.ad-btn-soft {
+  background: var(--sky);
+  color: var(--blue-dark);
+}
+.ad-btn-soft:hover:not(:disabled) {
+  background: #d1e4ff;
+}
+.ad-btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text);
+}
+.ad-btn-ghost:hover:not(:disabled) {
+  background: var(--bg);
+}
+.ad-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--blue-dark);
+  cursor: pointer;
+}
+.ad-icon-btn:hover {
+  background: var(--sky);
+}
+
+/* ---------- modal (used by every popup form) ---------- */
+.ad-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 37, 64, 0.5);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 50;
+}
+/* a popup opened on top of another popup (e.g. follow-up from the Complete form) */
+.ad-modal-bg ~ .ad-modal-bg {
+  z-index: 55;
+  background: rgba(10, 37, 64, 0.35);
+}
+.ad-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 24px 60px rgba(10, 37, 64, 0.3);
+}
+.ad-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.ad-modal-head h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.ad-modal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.ad-shell .ad-modal-note {
+  margin-bottom: 14px;
+}
+
+/* ---------- forms (appointments, follow-ups, invoices, edit details...) ---------- */
+.ad-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.ad-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.ad-form label:nth-child(-n + 2) {
+  grid-column: 1 / -1;
+}
+.ad-form input,
+.ad-form select,
+.ad-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 400;
+}
+.ad-form textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+.ad-form input:focus,
+.ad-form select:focus,
+.ad-form textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(29, 111, 219, 0.15);
+}
+.ad-form input[readonly] {
+  background: var(--bg);
+  color: var(--muted);
+}
+/* "plain" forms (Edit details, Complete): fields sit side by side unless marked .ad-span */
+.ad-form.ad-form-plain label:nth-child(-n + 2) {
+  grid-column: auto;
+}
+.ad-form-plain .ad-span {
+  grid-column: 1 / -1;
+}
+.ad-quick {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ad-form-error {
+  color: var(--red);
+  font-size: 13.5px;
+}
+
+/* ---------- warnings (same doctor + date + time already booked) ---------- */
+.ad-shell .ad-warn {
+  background: var(--amber-bg);
+  border: 1px solid #f0d28a;
+  border-left: 4px solid #d98b00;
+  color: #6b4500;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  text-align: left;
+}
+.ad-shell .ad-warn ul {
+  list-style: disc;
+  margin-top: 6px;
+  padding-left: 20px;
+}
+.ad-shell .ad-warn li {
+  margin: 2px 0;
+}
+/* the blocking warning beside the Confirm button */
+.ad-shell .ad-confirm-footer-warning {
+  background: var(--red-bg);
+  border-color: #f3b9c0;
+  border-left-color: var(--red);
+  color: #7d1522;
+  margin: 0 0 4px;
+}
+/* in the Confirm popup the same warning shows by the button, so hide the duplicate at the top */
+.ad-modal:has(.ad-modal-foot .ad-warn) > .ad-warn {
+  display: none;
+}
+
+/* ---------- login, access denied, toast, banner ---------- */
+.ad-center {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.ad-login {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ad-login h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+.ad-login label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.ad-login input {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 400;
+}
+.ad-banner {
+  background: var(--red-bg);
+  color: var(--red);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 500;
+}
+.ad-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  z-index: 60;
+  max-width: calc(100vw - 32px);
+}
+.ad-toast-error {
+  background: var(--red);
+}
+
+/* ---------- patient details page ---------- */
+.ad-back {
+  align-self: flex-start;
+}
+.ad-back::before {
+  content: "\2190  ";
+}
+.ad-patient-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.ad-shell .ad-patient-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.ad-pay {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ---------- clinic setup (doctors, treatments, prices) ---------- */
+.ad-setup-add {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.ad-setup-add input {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+}
+.ad-setup-add .ad-price {
+  flex: none;
+  width: 120px;
+  min-width: 0;
+}
+.ad-price-edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.ad-price-edit input {
+  width: 96px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 400;
+}
+.ad-seed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.ad-shell .ad-setup-note {
+  margin-top: 12px;
+}
+
+/* ---------- complete appointment (bill) ---------- */
+.ad-bill {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 4px 14px;
+  margin-bottom: 16px;
+  background: var(--bg);
+}
+.ad-bill-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ad-bill-row span {
+  color: var(--muted);
+}
+.ad-bill-total {
+  border-bottom: 0;
+  font-size: 17px;
+}
+.ad-bill-total span {
+  color: var(--text);
+  font-weight: 700;
+}
+.ad-bill-total b {
+  color: var(--navy);
+}
+.ad-shell .ad-pay-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.ad-seg {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ad-seg-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+}
+.ad-seg-btn:hover {
+  background: var(--bg);
+}
+.ad-seg-on,
+.ad-seg-on:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+.ad-followup-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- responsive (kept last so it can override the rules above) ---------- */
+@media (max-width: 1100px) {
+  .ad-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .ad-top,
+  .ad-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .ad-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .ad-stats,
+  .ad-stats-3 {
+    grid-template-columns: 1fr;
+  }
+  .ad-form {
+    grid-template-columns: 1fr;
+  }
+  .ad-form label:nth-child(-n + 2),
+  .ad-form.ad-form-plain label:nth-child(-n + 2),
+  .ad-form-plain .ad-span {
+    grid-column: 1 / -1;
+  }
+  .ad-actions {
+    width: 100%;
+  }
+  .ad-modal {
+    padding: 18px;
+  }
+  .ad-modal-foot .ad-btn {
+    flex: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ad-side,
+  .ad-nav-item,
+  .ad-btn {
+    transition: none;
+  }
+}

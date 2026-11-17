@@ -1,0 +1,301 @@
+/* Sign-in, first-run setup and "No access" screens (premium split layout) */
+.ad-auth {
+  align-items: stretch;
+  background: #f3f6fb;
+}
+
+/* ----- left brand panel ----- */
+.ad-auth-art {
+  position: relative;
+  flex: 1 1 46%;
+  max-width: 660px;
+  padding: 48px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  color: #fff;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 520px at 0% 0%, rgba(59, 139, 255, 0.55), transparent 60%),
+    radial-gradient(700px 480px at 100% 100%, rgba(20, 88, 201, 0.5), transparent 60%),
+    linear-gradient(160deg, #0e2b57 0%, #0a1f42 100%);
+}
+.ad-auth-art::before,
+.ad-auth-art::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ad-auth-art::before {
+  width: 440px;
+  height: 440px;
+  right: -150px;
+  top: -130px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ad-auth-art::after {
+  width: 300px;
+  height: 300px;
+  left: -90px;
+  bottom: -110px;
+  background: rgba(59, 139, 255, 0.22);
+}
+.ad-auth-art > * {
+  position: relative;
+  z-index: 1;
+}
+.ad-auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ad-logo-lg {
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+}
+.ad-auth-brand-name {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.ad-auth-brand-sub {
+  font-size: 13px;
+  color: #a9c3e8;
+}
+.ad-auth-copy h2 {
+  font-size: 40px;
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  max-width: 440px;
+}
+.ad-auth-copy p {
+  margin-top: 14px;
+  max-width: 420px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: #b7cbea;
+}
+.ad-auth-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ad-auth-features li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+.ad-auth-feature-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  flex: none;
+}
+.ad-auth-features strong {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+}
+.ad-auth-features small {
+  display: block;
+  margin-top: 1px;
+  font-size: 13px;
+  color: #aac2e6;
+}
+
+/* ----- right form panel ----- */
+.ad-auth-panel {
+  flex: 1 1 54%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 32px;
+  overflow-y: auto;
+}
+.ad-auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 38px 36px;
+  box-shadow: var(--shadow-md);
+  animation: ad-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.ad-auth-card h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.ad-auth-sub {
+  margin: 8px 0 24px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.ad-auth-mobile-logo {
+  display: none;
+}
+.ad-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ad-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.ad-field-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #3b5068;
+}
+.ad-field-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #f7f9fd;
+  color: var(--muted);
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+}
+.ad-field-box:focus-within {
+  border-color: var(--blue);
+  background: #fff;
+  color: var(--blue);
+  box-shadow: var(--ring);
+}
+.ad-field-box svg {
+  flex: none;
+}
+.ad-field-box input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 15px 0;
+  color: var(--text);
+  font-size: 15.5px;
+  outline: none;
+}
+.ad-field-box input:focus-visible {
+  outline: none;
+}
+.ad-field-box input::placeholder {
+  color: #9aabbf;
+}
+.ad-field-eye {
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  margin-right: -6px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.ad-field-eye:hover {
+  background: var(--sky);
+  color: var(--blue-dark);
+}
+.ad-auth-submit {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 4px;
+  font-size: 16px;
+  border-radius: 14px;
+}
+.ad-auth-info {
+  color: var(--green);
+  font-size: 13.5px;
+}
+.ad-auth-setup {
+  border: 1px dashed #b4cbee;
+  background: var(--sky);
+  color: var(--blue-dark);
+  border-radius: 14px;
+  padding: 13px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.ad-auth-setup:hover {
+  background: #dbe9ff;
+}
+.ad-auth-foot {
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+}
+@keyframes ad-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* ----- tablets and phones: brand panel becomes a header band ----- */
+@media (max-width: 900px) {
+  .ad-auth {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ad-auth-art {
+    flex: none;
+    max-width: none;
+    padding: 28px 22px 64px;
+    gap: 14px;
+  }
+  .ad-auth-copy h2 {
+    font-size: 26px;
+  }
+  .ad-auth-copy p {
+    font-size: 14.5px;
+    margin-top: 8px;
+  }
+  .ad-auth-features {
+    display: none;
+  }
+  .ad-auth-panel {
+    flex: 1 0 auto;
+    justify-content: flex-start;
+    padding: 0 16px 28px;
+    margin-top: -40px;
+    overflow: visible;
+  }
+  .ad-auth-card {
+    padding: 28px 22px;
+    border-radius: 22px;
+  }
+  .ad-auth-card h1 {
+    font-size: 24px;
+  }
+  .ad-field-box input {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ad-auth-card {
+    animation: none;
+  }
+}

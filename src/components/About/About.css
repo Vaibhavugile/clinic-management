@@ -1,0 +1,176 @@
+/* ABOUT section styles */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1fr;
+  align-items: center;
+  gap: 96px;
+}
+
+.about-visual {
+  position: relative;
+  min-width: 0;
+  padding: 0 26px 26px 0;
+}
+
+.about-visual > img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 540px;
+  border-radius: 50% 50% 20px 20px;
+  box-shadow: var(--hp-shadow-lg);
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-image-outline {
+  position: absolute;
+  top: 26px;
+  right: 0;
+  bottom: 0;
+  left: 26px;
+  border: 1px solid var(--hp-accent);
+  border-radius: 50% 50% 20px 20px;
+  opacity: 0.7;
+}
+
+.about-image-note {
+  position: absolute;
+  z-index: 2;
+  right: -22px;
+  bottom: 56px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 290px;
+  padding: 18px 20px;
+  border: 1px solid rgba(6, 47, 66, 0.06);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--hp-shadow-lg);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.about-note-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--hp-ice);
+  color: var(--hp-primary);
+}
+
+.about-image-note strong,
+.about-image-note small {
+  display: block;
+}
+
+.about-image-note strong {
+  color: var(--hp-navy);
+  font-size: 13px;
+}
+
+.about-image-note small {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.about-content .section-heading {
+  margin-bottom: 32px;
+}
+
+.about-points {
+  display: grid;
+  gap: 8px;
+}
+
+.about-point {
+  display: flex;
+  gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s var(--hp-ease);
+}
+
+.about-point:hover {
+  transform: translateX(6px);
+  border-color: var(--hp-border);
+  background: var(--hp-surface);
+}
+
+.about-point > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--hp-ice);
+  color: var(--hp-primary);
+}
+
+.about-point strong {
+  color: var(--hp-navy);
+  font-size: 15px;
+}
+
+.about-point p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.about-button {
+  margin-top: 34px;
+}
+
+/* floating note card (floatY keyframes Home.css me hai) */
+@media (prefers-reduced-motion: no-preference) {
+  .about-image-note {
+    animation: floatY 6s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 1100px) {
+  .about-grid { gap: 56px; }
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .about-visual {
+    width: min(100%, 480px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .about-grid { gap: 48px; }
+  .about-visual { padding: 0 16px 16px 0; }
+  .about-visual > img { height: 420px; }
+  .about-image-outline { top: 16px; left: 16px; }
+
+  .about-image-note {
+    right: 0;
+    bottom: 34px;
+    max-width: 250px;
+    padding: 14px 16px;
+  }
+
+  .about-point { padding: 14px 4px; }
+  .about-point:hover { transform: none; background: transparent; border-color: transparent; }
+  .about-button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-point { transition: none; }
+}

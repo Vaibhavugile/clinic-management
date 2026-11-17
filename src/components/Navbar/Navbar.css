@@ -1,0 +1,553 @@
+/* src/components/Navbar.css  —  Floating rounded header */
+
+/* =========================================================
+   GLOBAL HELPERS (baaki pages bhi use karte hain)
+   ========================================================= */
+.container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.btn {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease,
+    border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1B9AE0 0%, var(--primary, #0875B9) 100%);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(8, 117, 185, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  left: 140%;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 14px 32px rgba(8, 117, 185, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-outline {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.btn-outline:hover {
+  background: #fff;
+  color: var(--navy, #062F42);
+}
+
+/* =========================================================
+   HEADER  (floating capsule)
+   ========================================================= */
+.site-header {
+  --nav-h: 68px;
+  --nav-pad: 14px;
+  --nav-gap: clamp(12px, 2.4vw, 40px);
+  --nav-gold: #2BB3C9; /* brand-icon ring (naam purana, rang ab teal) */
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  height: calc(var(--nav-h) + var(--nav-pad));
+  padding: var(--nav-pad) var(--nav-gap) 0;
+  background: transparent;
+  pointer-events: none; /* sirf pill clickable, side ki jagah nahi */
+}
+
+/* padding/border width mein hi count ho, bahar na nikle */
+.site-header *,
+.site-header *::before,
+.site-header *::after {
+  box-sizing: border-box;
+}
+
+.site-header a {
+  text-decoration: none;
+}
+
+/* Home page: header hero ke upar float karta hai, isliye safed gap nahi aata */
+.site-header-overlay {
+  margin-bottom: calc(-1 * (var(--nav-h) + var(--nav-pad)));
+}
+
+.site-header .navbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1560px;
+  height: var(--nav-h);
+  margin: 0 auto;
+  padding: 8px 10px 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow:
+    0 14px 44px rgba(6, 47, 66, 0.12),
+    0 0 0 1px rgba(6, 47, 66, 0.05);
+  -webkit-backdrop-filter: saturate(170%) blur(20px);
+  backdrop-filter: saturate(170%) blur(20px);
+  pointer-events: auto;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-header-scrolled .navbar {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 18px 50px rgba(6, 47, 66, 0.16),
+    0 0 0 1px rgba(6, 47, 66, 0.06);
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.brand-icon {
+  position: relative;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1B9AE0 0%, var(--primary, #0875B9) 100%);
+  box-shadow: 0 8px 20px rgba(8, 117, 185, 0.32);
+  color: #fff;
+  transition: transform 0.4s ease;
+}
+
+.brand-icon::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--nav-gold);
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.brand:hover .brand-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.brand-tooth {
+  display: block;
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.brand-copy strong {
+  color: var(--navy, #062F42);
+  font-family: var(--font-heading, Georgia, "Times New Roman", serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brand-copy small {
+  background: linear-gradient(90deg, #0B8CA3, #2BB3C9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0B8CA3;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   DESKTOP NAV
+   ========================================================= */
+.nav-content,
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-content {
+  flex: 1;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+}
+
+.nav-links {
+  gap: 4px;
+  margin: 0 auto;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(6, 47, 66, 0.04);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--navy, #062F42);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.nav-link:hover {
+  background: #fff;
+  color: var(--primary, #0875B9);
+  box-shadow: 0 4px 14px rgba(6, 47, 66, 0.08);
+}
+
+.nav-link.active {
+  background: #fff;
+  color: var(--primary, #0875B9);
+  box-shadow: 0 6px 18px rgba(6, 47, 66, 0.1);
+}
+
+.nav-link svg {
+  transition: transform 0.3s ease;
+}
+
+.nav-dropdown-trigger.open svg {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 260px;
+  padding: 10px;
+  border: 1px solid rgba(6, 47, 66, 0.07);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 30px 70px rgba(6, 47, 66, 0.2);
+  transform: translateX(-50%);
+  animation: dropdownIn 0.25s ease both;
+}
+
+/* hover ke beech ka gap cover */
+.nav-dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  right: 0;
+  left: 0;
+  height: 16px;
+}
+
+.nav-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  color: var(--navy, #062F42);
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease, padding 0.25s ease;
+}
+
+.nav-dropdown-menu a:hover {
+  padding-left: 20px;
+  background: var(--ice, #EAF6FC);
+  color: var(--primary, #0875B9);
+}
+
+.nav-dropdown-menu .nav-dropdown-all {
+  margin-top: 6px;
+  background: var(--ice, #EAF6FC);
+  color: var(--primary, #0875B9);
+  font-weight: 700;
+}
+
+.nav-dropdown-menu .nav-dropdown-all:hover {
+  background: var(--primary, #0875B9);
+  color: #fff;
+}
+
+/* CTA: pill + andar gol arrow */
+.nav-cta {
+  min-height: 48px;
+  padding: 0 7px 0 24px;
+}
+
+.nav-cta svg {
+  box-sizing: content-box;
+  flex-shrink: 0;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.nav-cta:hover svg {
+  background: rgba(255, 255, 255, 0.34);
+  transform: rotate(45deg);
+}
+
+/* Mobile toggle: gol button */
+.mobile-menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1B9AE0 0%, var(--primary, #0875B9) 100%);
+  box-shadow: 0 8px 20px rgba(8, 117, 185, 0.3);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-menu-toggle:active {
+  transform: scale(0.94);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] {
+  background: var(--navy, #062F42);
+  box-shadow: 0 8px 20px rgba(6, 47, 66, 0.3);
+}
+
+.nav-link:focus-visible,
+.brand:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.nav-dropdown-menu a:focus-visible {
+  outline: 2px solid var(--primary, #0875B9);
+  outline-offset: 2px;
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================================================
+   LAPTOP: thoda tight
+   ========================================================= */
+@media (max-width: 1320px) {
+  .site-header .navbar { gap: 14px; }
+  .nav-content { gap: 14px; }
+  .nav-link { padding: 10px 12px; font-size: 13px; }
+  .brand-copy strong { font-size: 19px; }
+  .brand-copy small { letter-spacing: 2.4px; }
+  .nav-cta { padding-left: 20px; font-size: 13px; }
+}
+
+/* =========================================================
+   MOBILE / TABLET: floating rounded menu card
+   ========================================================= */
+@media (max-width: 1120px) {
+  .site-header { --nav-h: 62px; --nav-pad: 10px; }
+
+  .mobile-menu-toggle { display: grid; }
+
+  .nav-content {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    left: 0;
+    display: none;
+    flex: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 18px;
+    width: 100%;
+    max-height: calc(100vh - var(--nav-h) - 40px);
+    max-height: calc(100dvh - var(--nav-h) - 40px);
+    padding: 14px 18px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid rgba(6, 47, 66, 0.07);
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0 30px 70px rgba(6, 47, 66, 0.22);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-content.nav-content-open {
+    display: flex;
+    animation: menuIn 0.3s ease both;
+  }
+
+  .nav-links {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .nav-dropdown {
+    width: 100%;
+  }
+
+  .nav-link {
+    width: 100%;
+    min-height: 54px;
+    justify-content: space-between;
+    padding: 15px 18px;
+    border-radius: 999px;
+    font-size: 15.5px;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: var(--ice, #EAF6FC);
+    box-shadow: none;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    width: 100%;
+    margin: 6px 0 8px;
+    padding: 8px;
+    border: 0;
+    border-radius: 26px;
+    background: var(--ice, #EAF6FC);
+    box-shadow: none;
+    transform: none;
+    animation: none;
+  }
+
+  .nav-dropdown-menu::before { display: none; }
+
+  .nav-dropdown-menu a {
+    min-height: 50px;
+    padding: 13px 16px;
+    font-size: 15px;
+  }
+
+  .nav-dropdown-menu a:hover {
+    padding-left: 16px;
+    background: #fff;
+  }
+
+  .nav-dropdown-menu .nav-dropdown-all {
+    background: #fff;
+  }
+
+  .nav-cta {
+    width: 100%;
+    max-width: 100%;
+    min-height: 56px;
+    margin: 0;
+    justify-content: space-between;
+    padding: 0 8px 0 26px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header { padding-right: 12px; padding-left: 12px; }
+
+  .site-header .navbar { padding: 6px 8px 6px 10px; }
+
+  .brand { gap: 10px; }
+  .brand-icon { width: 40px; height: 40px; }
+  .brand-icon::before { inset: -3px; }
+  .brand-tooth { width: 21px; height: 21px; }
+  .brand-copy { gap: 4px; }
+  .brand-copy strong { font-size: 17px; }
+  .brand-copy small { font-size: 8px; letter-spacing: 2.2px; }
+
+  .mobile-menu-toggle { width: 42px; height: 42px; }
+  .nav-content { padding-right: 14px; padding-left: 14px; border-radius: 26px; }
+}
+
+@media (max-width: 350px) {
+  .brand-copy strong { font-size: 15.5px; }
+  .brand-copy small { letter-spacing: 1.6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header .navbar,
+  .brand-icon,
+  .nav-link { transition: none; }
+
+  .nav-dropdown-menu,
+  .nav-content.nav-content-open { animation: none; }
+}

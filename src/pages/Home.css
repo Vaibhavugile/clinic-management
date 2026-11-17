@@ -1,0 +1,1213 @@
+/* src/Home.css  —  GLOBAL styles
+   Isme: tokens, base, buttons, headings, reveal, trust bar, why, brand band, gallery,
+   location, shared form styles, shared animations.
+   Baaki sections ki CSS apni component folder me hai (Hero, Services, About, Doctors,
+   Appointment, Reviews, FAQ). Home.jsx isse SABSE PEHLE import karta hai. */
+
+/* =========================================================
+   TOKENS
+   ========================================================= */
+.home-page {
+  --hp-primary: var(--primary, #0875B9);
+  --hp-primary-light: #1B9AE0;
+  --hp-navy: var(--navy, #062F42);
+  --hp-navy-deep: #041F2D;
+  --hp-ice: var(--ice, #EAF6FC);
+  --hp-surface: var(--surface, #F6FAFC);
+  --hp-border: var(--border, #E3EBEF);
+  --hp-heading: var(--font-heading, Georgia, "Times New Roman", serif);
+  --hp-accent: #2BB3C9;
+  --hp-accent-light: #BDE8F2;
+  --hp-text: #4F6068;
+  --hp-shadow-sm: 0 6px 20px rgba(6, 47, 66, 0.06);
+  --hp-shadow: 0 18px 50px rgba(6, 47, 66, 0.1);
+  --hp-shadow-lg: 0 30px 80px rgba(6, 47, 66, 0.18);
+  --hp-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* clip (hidden nahi): isse FAQ ka position: sticky chalta rehta hai */
+  overflow-x: clip;
+  color: var(--hp-text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+  box-sizing: border-box;
+}
+
+.home-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-page [id] {
+  scroll-margin-top: 104px;
+}
+
+.home-page button,
+.home-page input,
+.home-page select,
+.home-page textarea {
+  font-family: inherit;
+}
+
+.home-page button {
+  cursor: pointer;
+}
+
+.home-page img {
+  max-width: 100%;
+}
+
+.home-page .container {
+  width: 100%;
+  max-width: 1248px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+.section {
+  padding: 112px 0;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.home-page .btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: transform 0.3s var(--hp-ease), box-shadow 0.3s var(--hp-ease),
+    background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.home-page .btn:hover {
+  transform: translateY(-2px);
+}
+
+.home-page .btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.home-page .btn-primary {
+  background: linear-gradient(135deg, var(--hp-primary-light) 0%, var(--hp-primary) 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(8, 117, 185, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.home-page .btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+}
+
+.home-page .btn-primary:hover::after {
+  left: 140%;
+}
+
+.home-page .btn-primary:hover {
+  box-shadow: 0 16px 36px rgba(8, 117, 185, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.home-page .btn-outline {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.home-page .btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.home-page .btn-light {
+  border-color: rgba(255, 255, 255, 0.9);
+  background: #fff;
+  color: var(--hp-navy);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+
+.home-page .btn-light:hover {
+  background: var(--hp-ice);
+}
+
+.home-page .btn svg {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   SECTION HEADINGS (SectionHeading component + FAQ/Location headings)
+   ========================================================= */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--hp-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+  line-height: 1.7;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--hp-accent);
+  transform-origin: left;
+}
+
+.section-heading {
+  max-width: 660px;
+  margin-bottom: 56px;
+}
+
+.section-heading h2,
+.faq-intro h2,
+.location-copy h2 {
+  margin: 16px 0 18px;
+  color: var(--hp-navy);
+  font-family: var(--hp-heading);
+  font-size: clamp(32px, 3.8vw, 50px);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -1px;
+}
+
+.section-heading p,
+.faq-intro > p,
+.location-copy > p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.section-heading-center {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.section-heading-center .eyebrow {
+  justify-content: center;
+}
+
+.section-heading-center .eyebrow::after {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--hp-accent);
+  transform-origin: right;
+}
+
+/* shared text link (Services, Gallery, FAQ) */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--hp-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.text-link svg {
+  transition: transform 0.3s var(--hp-ease);
+}
+
+.text-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* =========================================================
+   REVEAL (section level)
+   ========================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s var(--hp-ease), transform 0.9s var(--hp-ease);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* JavaScript band ho to sections gayab na rahein */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================================
+   TRUST BAR (hero ke upar overlap hoti hui floating card)
+   ========================================================= */
+.trust-bar {
+  position: relative;
+  z-index: 5;
+  margin-top: -64px;
+  background: transparent;
+}
+
+.home-page .trust-bar .trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(1200px, calc(100% - 48px));
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--hp-shadow-lg);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 22px;
+  border-right: 1px solid var(--hp-border);
+}
+
+.trust-item:last-child {
+  border-right: 0;
+}
+
+.trust-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 16px;
+  background: linear-gradient(145deg, var(--hp-ice), #fff);
+  box-shadow: inset 0 0 0 1px rgba(8, 117, 185, 0.12);
+  color: var(--hp-primary);
+  transition: transform 0.4s var(--hp-ease), background 0.4s ease, color 0.4s ease;
+}
+
+.trust-item:hover .trust-icon {
+  background: linear-gradient(135deg, var(--hp-primary-light), var(--hp-primary));
+  color: #fff;
+  transform: translateY(-3px) rotate(-6deg);
+}
+
+.trust-item strong,
+.trust-item small {
+  display: block;
+}
+
+.trust-item strong {
+  color: var(--hp-navy);
+  font-size: 14px;
+}
+
+.trust-item small {
+  margin-top: 4px;
+  color: #6F7F86;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   WHY US
+   ========================================================= */
+.why-section {
+  background:
+    radial-gradient(circle at 0% 100%, rgba(43, 179, 201, 0.12), transparent 40%),
+    linear-gradient(180deg, var(--hp-ice) 0%, #F4FAFD 100%);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.why-card {
+  position: relative;
+  padding: 40px 34px 36px;
+  overflow: hidden;
+  border: 1px solid rgba(8, 117, 185, 0.1);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--hp-shadow-sm);
+  transition: transform 0.45s var(--hp-ease), box-shadow 0.45s var(--hp-ease);
+}
+
+.why-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--hp-shadow-lg);
+}
+
+.why-card > svg {
+  position: relative;
+  z-index: 1;
+  box-sizing: content-box;
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--hp-primary-light), var(--hp-primary));
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(8, 117, 185, 0.3);
+}
+
+.why-number {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  color: rgba(8, 117, 185, 0.08);
+  font-family: var(--hp-heading);
+  font-size: 84px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.why-card h3 {
+  margin: 28px 0 12px;
+  color: var(--hp-navy);
+  font-family: var(--hp-heading);
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+
+.why-card p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.85;
+}
+
+/* =========================================================
+   BRAND BAND (JSX me 4 same groups; track -50% tak chalta hai -> seamless loop)
+   Speed badalni ho to "42s" badal dein (zyada = dheere).
+   ========================================================= */
+.brand-band {
+  overflow: hidden;
+  padding: 24px 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(8, 117, 185, 0.35), transparent 45%),
+    linear-gradient(135deg, var(--hp-navy-deep) 0%, var(--hp-navy) 100%);
+  color: #fff;
+}
+
+.brand-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  animation: brandScroll 42s linear infinite;
+  will-change: transform;
+}
+
+.brand-band:hover .brand-track {
+  animation-play-state: paused;
+}
+
+.brand-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 34px;
+  padding-right: 34px;
+  white-space: nowrap;
+}
+
+.brand-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(100deg, #DDF4FA 0%, #2BB3C9 55%, #BDE8F2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--hp-accent-light);
+  font-family: var(--hp-heading);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-style: italic;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-name svg {
+  color: var(--hp-accent);
+  -webkit-text-fill-color: initial;
+}
+
+.brand-treatment {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brand-sep {
+  color: var(--hp-accent);
+  font-size: 14px;
+}
+
+@keyframes brandScroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* =========================================================
+   GALLERY
+   ========================================================= */
+.gallery-heading-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.gallery-heading-row .section-heading {
+  margin-bottom: 44px;
+}
+
+.gallery-view-link {
+  flex-shrink: 0;
+  margin-bottom: 54px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  grid-template-rows: repeat(2, 260px);
+  gap: 20px;
+}
+
+.gallery-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--hp-navy);
+  box-shadow: var(--hp-shadow-sm);
+}
+
+.gallery-card-large {
+  grid-row: span 2;
+}
+
+.gallery-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--hp-ease);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.08);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 28px;
+  background: linear-gradient(0deg, rgba(3, 24, 35, 0.9) 0%, rgba(3, 24, 35, 0.2) 55%, transparent 80%);
+  color: #fff;
+}
+
+.gallery-overlay small {
+  color: var(--hp-accent-light);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.gallery-overlay strong {
+  font-family: var(--hp-heading);
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+
+.gallery-overlay svg {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  box-sizing: content-box;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background 0.3s ease, transform 0.3s var(--hp-ease);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.gallery-card:hover .gallery-overlay svg {
+  background: var(--hp-primary);
+  transform: rotate(45deg);
+}
+
+.gallery-disclaimer {
+  margin: 20px 0 0;
+  color: #7A8A91;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   SHARED FORM STYLES (Appointment form + Review popup dono use karte hain)
+   ========================================================= */
+.form-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.form-heading-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--hp-ice);
+  color: var(--hp-primary);
+}
+
+.form-heading h3 {
+  margin: 0;
+  color: var(--hp-navy);
+  font-family: var(--hp-heading);
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+
+.form-heading p {
+  margin: 5px 0 0;
+  font-size: 12px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 16px;
+}
+
+.form-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+  color: var(--hp-navy);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: 14px 16px;
+  border: 1.5px solid #DDE7EC;
+  border-radius: 14px;
+  background: #FAFCFD;
+  color: var(--hp-navy);
+  font-size: 15px;
+  font-weight: 400;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.form-field select {
+  padding-right: 42px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230875B9' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+}
+
+/* iOS Safari: date input ka text center / height collapse fix */
+.form-field input[type="date"] {
+  display: block;
+  min-height: 52px;
+  text-align: left;
+}
+
+.form-field input[type="date"]::-webkit-date-and-time-value {
+  min-height: 1.5em;
+  text-align: left;
+}
+
+.form-field textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #9EACB2;
+}
+
+.form-field input:hover,
+.form-field select:hover,
+.form-field textarea:hover {
+  border-color: #BFD3DD;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--hp-primary);
+  background: #fff;
+  /* transparent outline: high-contrast mode me focus dikhta rahe */
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 4px rgba(8, 117, 185, 0.12);
+}
+
+.form-submit {
+  width: 100%;
+  margin-top: 26px;
+  min-height: 56px;
+}
+
+.form-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+.booking-message {
+  margin-top: 18px;
+  padding: 15px 16px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.booking-message-success {
+  border: 1px solid #B9E4CB;
+  background: #F0FAF3;
+  color: #23643B;
+}
+
+.booking-message-error {
+  border: 1px solid #F0C7C7;
+  background: #FFF3F3;
+  color: #9B2929;
+}
+
+.form-privacy {
+  margin: 16px 0 0;
+  color: #7F8E95;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* =========================================================
+   LOCATION CTA
+   ========================================================= */
+.location-section {
+  padding: 0 0 110px;
+}
+
+.home-page .location-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: min(1200px, calc(100% - 48px));
+  padding: 60px 64px;
+  overflow: hidden;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(43, 179, 201, 0.25), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(27, 154, 224, 0.35), transparent 50%),
+    linear-gradient(135deg, var(--hp-navy) 0%, var(--hp-navy-deep) 100%);
+  box-shadow: var(--hp-shadow-lg);
+}
+
+.location-copy {
+  max-width: 560px;
+}
+
+.location-card .eyebrow {
+  color: var(--hp-accent-light);
+}
+
+.location-copy h2 {
+  margin-top: 14px;
+  color: #fff;
+  font-size: clamp(30px, 3.6vw, 44px);
+}
+
+.location-copy > p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   FOCUS
+   ========================================================= */
+.home-page a:focus-visible,
+.home-page button:focus-visible {
+  outline: 2px solid var(--hp-primary);
+  outline-offset: 3px;
+}
+
+.hero a:focus-visible,
+.appointment-section a:focus-visible,
+.location-card a:focus-visible {
+  outline-color: var(--hp-accent-light);
+}
+
+/* =========================================================
+   SHARED ANIMATIONS
+   (hero, doctors, about-note ki animations unki apni CSS me hain)
+   ========================================================= */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-56px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(56px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes tagPop {
+  from { opacity: 0; transform: translateY(10px) scale(0.85); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(43, 179, 201, 0.5); }
+  100% { box-shadow: 0 0 0 16px rgba(43, 179, 201, 0); }
+}
+
+@keyframes gradientShift {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
+@keyframes orbDrift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(40px, 30px, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Jin cheezon ke bachche stagger me aate hain: pehle chhupe rahte hain */
+  [data-reveal]:not(.is-visible) :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > *,
+  [data-reveal]:not(.is-visible) :is(.about-visual, .appointment-form, .reviews-summary, .location-card, .gallery-grid > *, .services-bottom) {
+    opacity: 0;
+  }
+
+  /* ... aur section dikhte hi rise-in */
+  [data-reveal].is-visible :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > * {
+    animation: riseIn 0.85s var(--hp-ease) backwards;
+  }
+
+  [data-reveal].is-visible :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > :nth-child(1) { animation-delay: 0.05s; }
+
+  [data-reveal].is-visible :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > :nth-child(2) { animation-delay: 0.17s; }
+
+  [data-reveal].is-visible :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > :nth-child(3) { animation-delay: 0.29s; }
+
+  [data-reveal].is-visible :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > :nth-child(4) { animation-delay: 0.41s; }
+
+  [data-reveal].is-visible :is(
+      .section-heading,
+      .trust-grid,
+      .services-grid,
+      .why-grid,
+      .about-content,
+      .about-points,
+      .appointment-copy,
+      .faq-intro,
+      .faq-list,
+      .reviews-list,
+      .location-copy,
+      .location-actions,
+      .doctors-stats
+    ) > :nth-child(n + 5) { animation-delay: 0.53s; }
+
+  /* Side se aane wale blocks */
+  [data-reveal].is-visible .about-visual {
+    animation: slideInLeft 1s 0.1s var(--hp-ease) backwards;
+  }
+
+  [data-reveal].is-visible .appointment-form {
+    animation: slideInRight 1s 0.25s var(--hp-ease) backwards;
+  }
+
+  [data-reveal].is-visible .reviews-summary {
+    animation: scaleIn 0.9s 0.1s var(--hp-ease) backwards;
+  }
+
+  [data-reveal].is-visible .location-card {
+    animation: scaleIn 1s 0.1s var(--hp-ease) backwards;
+  }
+
+  [data-reveal].is-visible .services-bottom {
+    animation: riseIn 0.8s 0.5s var(--hp-ease) backwards;
+  }
+
+  /* Gallery: scale-in */
+  [data-reveal].is-visible .gallery-grid > * {
+    animation: scaleIn 0.9s var(--hp-ease) backwards;
+  }
+
+  [data-reveal].is-visible .gallery-grid > :nth-child(1) { animation-delay: 0.1s; }
+  [data-reveal].is-visible .gallery-grid > :nth-child(2) { animation-delay: 0.25s; }
+  [data-reveal].is-visible .gallery-grid > :nth-child(3) { animation-delay: 0.4s; }
+
+  /* Eyebrow ki line grow hoti hai */
+  [data-reveal].is-visible .eyebrow::before,
+  [data-reveal].is-visible .eyebrow::after {
+    animation: lineGrow 0.9s 0.2s var(--hp-ease) backwards;
+  }
+
+  /* Reviews ke bars 0 se bharte hain */
+  [data-reveal].is-visible .reviews-bar-fill {
+    animation: lineGrow 1.1s 0.5s var(--hp-ease) backwards;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+@media (max-width: 1100px) {
+  .section { padding: 90px 0; }
+
+  .home-page .trust-bar .trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trust-item:nth-child(2) { border-right: 0; }
+  .trust-item:nth-child(-n + 2) { border-bottom: 1px solid var(--hp-border); }
+
+  .why-grid { gap: 18px; }
+  .why-card { padding: 34px 26px 30px; }
+  .home-page .location-card { padding: 48px 44px; }
+}
+
+@media (max-width: 900px) {
+  .why-grid { grid-template-columns: 1fr; }
+
+  .home-page .location-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 700px) {
+  .home-page .container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .section { padding: 68px 0; }
+
+  .section-heading { margin-bottom: 36px; }
+
+  .section-heading h2,
+  .faq-intro h2 { font-size: 33px; letter-spacing: -0.7px; }
+
+  .section-heading p,
+  .faq-intro > p,
+  .location-copy > p { font-size: 15px; line-height: 1.8; }
+
+  .eyebrow { font-size: 10.5px; letter-spacing: 2.2px; }
+
+  /* Buttons: easy thumb tap */
+  .home-page .btn { min-height: 54px; }
+
+  /* TRUST BAR */
+  .trust-bar { margin-top: -56px; }
+
+  .home-page .trust-bar .trust-grid {
+    width: calc(100% - 32px);
+    padding: 6px;
+    border-radius: 20px;
+  }
+
+  .trust-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px 14px;
+  }
+
+  .trust-icon { width: 44px; height: 44px; border-radius: 14px; }
+  .trust-item strong { font-size: 13.5px; }
+  .trust-item small { font-size: 12px; }
+
+  /* WHY */
+  .why-grid { gap: 14px; }
+  .why-card { padding: 30px 24px 28px; border-radius: 22px; }
+  .why-card h3 { font-size: 23px; }
+  .why-number { font-size: 70px; }
+
+  /* BRAND BAND */
+  .brand-band { padding: 18px 0; }
+  .brand-group { gap: 24px; padding-right: 24px; }
+  .brand-treatment { font-size: 11.5px; letter-spacing: 2px; }
+
+  /* GALLERY */
+  .gallery-heading-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .gallery-heading-row .section-heading { margin-bottom: 14px; }
+  .gallery-view-link { margin-bottom: 26px; }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 290px 210px;
+    gap: 12px;
+  }
+
+  .gallery-card { border-radius: 18px; }
+  .gallery-card-large { grid-column: 1 / -1; grid-row: auto; }
+  .gallery-overlay { gap: 6px; padding: 18px; }
+  .gallery-overlay small { font-size: 9.5px; letter-spacing: 1.6px; }
+  .gallery-overlay strong { font-size: 19px; }
+  .gallery-overlay svg { right: 14px; bottom: 14px; padding: 8px; }
+  .gallery-card:not(.gallery-card-large) .gallery-overlay svg { display: none; }
+
+  /* SHARED FORM */
+  .form-heading { margin-bottom: 24px; }
+  .form-heading h3 { font-size: 24px; }
+  .form-grid { gap: 18px; }
+
+  /* iOS zoom na ho isliye 16px */
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    min-height: 54px;
+    font-size: 16px;
+  }
+
+  .form-field input[type="date"] { min-height: 54px; }
+
+  /* LOCATION */
+  .location-section { padding-bottom: 70px; }
+
+  .home-page .location-card {
+    width: calc(100% - 32px);
+    gap: 28px;
+    padding: 38px 24px;
+    border-radius: 26px;
+  }
+
+  .location-actions { width: 100%; flex-direction: column; }
+  .location-actions .btn { width: 100%; }
+
+  /* Chhoti screen par side se slide ki jagah neeche se rise-in (horizontal scroll na bane) */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal].is-visible .about-visual,
+    [data-reveal].is-visible .appointment-form {
+      animation-name: riseIn;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .home-page .container { padding-right: 16px; padding-left: 16px; }
+
+  .home-page .trust-bar .trust-grid { width: calc(100% - 24px); }
+  .trust-item { padding: 16px 12px; }
+
+  .form-grid { grid-template-columns: 1fr; }
+  .form-field-full { grid-column: auto; }
+
+  .gallery-grid { grid-template-rows: 260px 190px; }
+}
+
+/* iPhone notch / home indicator */
+@supports (padding: max(0px)) {
+  .location-section {
+    padding-bottom: max(70px, calc(env(safe-area-inset-bottom) + 40px));
+  }
+}
+
+/* Touch devices: hover effects off */
+@media (hover: none) {
+  .why-card:hover,
+  .home-page .btn:hover { transform: none; }
+  .gallery-card:hover img { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+
+  .brand-track { animation: none; }
+  .brand-band { overflow-x: auto; }
+
+  .home-page .btn,
+  .home-page .btn::after,
+  .trust-icon,
+  .why-card,
+  .gallery-card img,
+  .gallery-overlay svg { transition: none; }
+}

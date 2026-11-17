@@ -1,0 +1,328 @@
+/* HERO section styles (Home.css ke tokens .home-page se aate hain) */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 680px;
+  min-height: clamp(640px, 90svh, 840px);
+  overflow: hidden;
+  background: var(--hp-navy-deep);
+  color: #fff;
+}
+
+/* Image JSX se inline aati hai (HERO_IMAGE = /assets/hero.png).
+   Image na mile to navy fallback dikhta hai. */
+.hero-background {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  background-color: var(--hp-navy-deep);
+  background-position: center 40%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  will-change: transform;
+  animation: heroZoom 22s ease-in-out infinite alternate;
+}
+
+.hero-overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 80%, rgba(8, 117, 185, 0.28), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(43, 179, 201, 0.14), transparent 40%),
+    linear-gradient(90deg, rgba(3, 24, 35, 0.95) 0%, rgba(4, 31, 45, 0.84) 38%, rgba(6, 47, 66, 0.46) 70%, rgba(6, 47, 66, 0.2) 100%),
+    linear-gradient(0deg, rgba(3, 24, 35, 0.55), transparent 45%);
+}
+
+.hero-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: inherit;
+  padding-top: 140px;
+  padding-bottom: 150px;
+}
+
+/* Hero full-width: left ka faltu space hata diya */
+.home-page .hero-content {
+  max-width: none;
+  padding-right: clamp(20px, 4.2vw, 72px);
+  padding-left: clamp(20px, 4.2vw, 72px);
+}
+
+.hero-copy {
+  max-width: 760px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 18px 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--hp-accent-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.eyebrow-line {
+  width: 26px;
+  height: 1px;
+  background: var(--hp-accent);
+}
+
+.hero h1 {
+  margin: 28px 0 24px;
+  color: #fff;
+  font-family: var(--hp-heading);
+  font-size: clamp(46px, 6.6vw, 88px);
+  font-weight: 500;
+  letter-spacing: -2.2px;
+  line-height: 1.06;
+}
+
+.hero h1 span {
+  color: var(--hp-accent-light);
+  font-style: italic;
+  background: linear-gradient(100deg, #DDF4FA 0%, #2BB3C9 55%, #BDE8F2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  max-width: 540px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  margin-top: 38px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+}
+
+.hero-trust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.hero-trust svg {
+  color: var(--hp-accent);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 88px;
+  left: clamp(20px, 4.2vw, 72px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.hero-scroll-line {
+  display: block;
+  width: 52px;
+  height: 1px;
+  background: var(--hp-accent);
+  transform-origin: left;
+  animation: scrollLine 2.2s ease-in-out infinite;
+}
+
+.hero-image-caption {
+  position: absolute;
+  right: clamp(20px, 4.2vw, 72px);
+  bottom: 88px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 22px 16px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.caption-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #DDF4FA, #2BB3C9);
+  color: var(--hp-navy);
+}
+
+.hero-image-caption strong,
+.hero-image-caption small {
+  display: block;
+}
+
+.hero-image-caption strong {
+  color: #fff;
+  font-size: 13px;
+}
+
+.hero-image-caption small {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+}
+
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+@keyframes scrollLine {
+  0%, 100% { transform: scaleX(0.6); opacity: 0.6; }
+  50% { transform: scaleX(1); opacity: 1; }
+}
+
+/* HERO: pehle load par ek ke baad ek (keyframes Home.css me hain) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * {
+    animation: riseIn 1s var(--hp-ease) backwards;
+  }
+
+  .hero-copy > :nth-child(1) { animation-delay: 0.1s; }
+  .hero-copy > :nth-child(2) { animation-delay: 0.25s; }
+  .hero-copy > :nth-child(3) { animation-delay: 0.4s; }
+  .hero-copy > :nth-child(4) { animation-delay: 0.55s; }
+  .hero-copy > :nth-child(5) { animation-delay: 0.7s; }
+
+  .hero h1 span {
+    background-size: 200% auto;
+    animation: gradientShift 6s linear infinite;
+  }
+
+  .hero-scroll {
+    animation: riseIn 1s 1s var(--hp-ease) backwards;
+  }
+
+  .hero-image-caption {
+    animation: riseIn 1s 0.9s var(--hp-ease) backwards, floatY 6s 2s ease-in-out infinite;
+  }
+}
+
+/* Small laptop: caption card copy se na takraye */
+@media (max-width: 1180px) {
+  .hero-image-caption { display: none; }
+}
+
+@media (max-width: 900px) {
+  .hero-scroll { display: none; }
+
+  .hero-content { padding-bottom: 130px; }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 680px;
+    min-height: min(780px, 92svh);
+    align-items: flex-end;
+  }
+
+  .hero-background { background-position: 62% center; }
+
+  .hero-overlay {
+    background:
+      radial-gradient(circle at 0% 100%, rgba(8, 117, 185, 0.3), transparent 55%),
+      linear-gradient(180deg, rgba(3, 24, 35, 0.55) 0%, rgba(3, 24, 35, 0.78) 45%, rgba(3, 24, 35, 0.96) 100%);
+  }
+
+  .hero-content {
+    align-items: flex-end;
+    padding-top: 130px;
+    padding-bottom: 110px;
+  }
+
+  /* mobile par container ka 20px padding hi rahe */
+  .home-page .hero-content {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .hero-eyebrow {
+    padding: 8px 14px 8px 12px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .eyebrow-line { width: 18px; }
+
+  .hero h1 {
+    margin: 22px 0 18px;
+    font-size: clamp(40px, 12vw, 56px);
+    letter-spacing: -1.4px;
+    line-height: 1.08;
+  }
+
+  .hero-description {
+    font-size: 15.5px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .hero-actions .btn { width: 100%; }
+
+  .hero-trust {
+    flex-direction: row;
+    gap: 10px 20px;
+    margin-top: 28px;
+    padding-top: 22px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-page .hero-content { padding-right: 16px; padding-left: 16px; }
+  .hero h1 { font-size: 38px; }
+  .hero-eyebrow { letter-spacing: 1.6px; }
+}
+
+/* Short phones landscape / chhoti height */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero { min-height: 520px; }
+  .hero-content { padding-top: 110px; padding-bottom: 100px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background,
+  .hero-copy,
+  .hero-scroll-line { animation: none; }
+}
